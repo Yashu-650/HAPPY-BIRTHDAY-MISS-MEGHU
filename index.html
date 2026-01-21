@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Meghu! 🎉</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #0a0015 50%, #1a0033 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Particles Background */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 1; }
+        }
+        
+        /* Intro Screen */
+        .intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            background: radial-gradient(circle at center, #2a0845 0%, #0a0015 100%);
+        }
+        
+        .cute-character {
+            font-size: 100px;
+            margin-bottom: 40px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+        
+        .intro-text {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .intro-text h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 36px;
+            color: #ff1aff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 26, 255, 0.5);
+        }
+        
+        .intro-text h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 32px;
+            color: #ff1aff;
+            text-shadow: 0 0 20px rgba(255, 26, 255, 0.5);
+            margin-bottom: 20px;
+        }
+        
+        .intro-text p {
+            font-size: 18px;
+            color: #ccc;
+            font-style: italic;
+        }
+        
+        .start-btn, .next-btn, .action-btn {
+            background: linear-gradient(135deg, #ff1aff 0%, #ff0080 100%);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 26, 255, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .start-btn:hover, .next-btn:hover, .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 26, 255, 0.6);
+        }
+        
+        /* Countdown Screen */
+        .countdown-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            background: radial-gradient(circle at center, #2a0845 0%, #0a0015 100%);
+        }
+        
+        .countdown-number {
+            font-size: 150px;
+            font-weight: 700;
+            color: #ff1aff;
+            text-shadow: 0 0 30px #ff1aff;
+            animation: pulse 1s ease-in-out;
+        }
+        
+        .countdown-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 28px;
+            color: #ff1aff;
+            margin-top: 30px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: none;
+            padding: 40px 20px;
+        }
+        
+        .container.active {
+            display: block;
+        }
+        
+        /* Screen Transitions */
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .screen.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Cake Screen */
+        .cake-screen {
+            position: relative;
+        }
+        
+        .cake-container {
+            margin-bottom: 60px;
+            perspective: 1000px;
+        }
+        
+        .cake {
+            width: 350px;
+            height: 350px;
+            position: relative;
+            animation: cakeAppear 1s ease-out;
+            margin: 0 auto;
+        }
+        
+        @keyframes cakeAppear {
+            0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+        
+        .cake-layer {
+            width: 100%;
+            height: 87px;
+            background: linear-gradient(to bottom, #6b3410 0%, #4a2310 100%);
+            border-radius: 8px;
+            position: absolute;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .cake-layer-1 { bottom: 0; }
+        .cake-layer-2 { bottom: 82px; width: 90%; left: 5%; }
+        .cake-layer-3 { bottom: 164px; width: 80%; left: 10%; }
+        
+        .frosting {
+            position: absolute;
+            top: -12px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: #f5deb3;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .plate {
+            position: absolute;
+            bottom: -15px;
+            left: -5%;
+            width: 110%;
+            height: 25px;
+            background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+            border-radius: 50%;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .candle {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 70px;
+            background: #cc0000;
+            border-radius: 3px;
+            display: none;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(204, 0, 0, 0.6);
+        }
+        
+        .candle.visible {
+            display: block;
+        }
+        
+        .flame {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 36px;
+            background: radial-gradient(ellipse at center, #ffff00 0%, #ffaa00 40%, #ff6600 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.3s infinite alternate;
+            box-shadow: 0 0 20px #ffaa00;
+        }
+        
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.1) translateY(-2px); }
+        }
+        
+        .sprinkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        .sprinkle.active {
+            animation: sprinklePop 0.5s ease-out forwards;
+        }
+        
+        @keyframes sprinklePop {
+            0% { opacity: 0; transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .button-group {
+            margin-top: 50px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* Birthday Message Screen */
+        .message-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            color: #ff1aff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 26, 255, 0.5);
+        }
+        
+        .message-subtitle {
+            font-family: 'Pacifico', cursive;
+            font-size: 42px;
+            color: #ff1aff;
+            text-align: center;
+            margin-bottom: 80px;
+            text-shadow: 0 0 20px rgba(255, 26, 255, 0.5);
+        }
+        
+        /* Balloon Screen */
+        .balloon-title {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 50px;
+            font-weight: 600;
+        }
+        
+        .balloon-game-area {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #4a0e4e 0%, #2d0a33 100%);
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 40px;
+            gap: 30px;
+        }
+        
+        .balloon-item {
+            width: 80px;
+            height: 110px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .balloon-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .balloon-body {
+            width: 80px;
+            height: 110px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            box-shadow: inset -10px -10px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .balloon-body::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 25px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+        
+        .balloon-string {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 60px;
+            background: #888;
+        }
+        
+        .balloon-item.popped .balloon-string {
+            animation: stringFade 0.4s ease-out forwards;
+        }
+        
+        @keyframes stringFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+        
+        .balloon-item.popped .balloon-body {
+            animation: balloonPop 0.4s ease-out forwards;
+        }
+        
+        @keyframes balloonPop {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+        
+        .hidden-message {
+            position: absolute;
+            font-size: 28px;
+            font-family: 'Pacifico', cursive;
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
+            z-index: 25;
+            padding: 30px;
+            margin: 30px;
+            white-space: nowrap;
+            line-height: 1.8;
+        }
+        
+        #hiddenMessage1 {
+            color: #ff0080;
+            text-shadow: 0 0 20px rgba(255, 0, 128, 0.8), 0 0 40px rgba(255, 0, 128, 0.6);
+        }
+        
+        #hiddenMessage2 {
+            color: #ff0080;
+            text-shadow: 0 0 20px rgba(255, 0, 128, 0.8), 0 0 40px rgba(255, 0, 128, 0.6);
+        }
+        
+        #hiddenMessage3 {
+            color: #ff0080;
+            text-shadow: 0 0 20px rgba(255, 0, 128, 0.8), 0 0 40px rgba(255, 0, 128, 0.6);
+        }
+        
+        #hiddenMessage4 {
+            color: #ff0080;
+            text-shadow: 0 0 20px rgba(255, 0, 128, 0.8), 0 0 40px rgba(255, 0, 128, 0.6);
+        }
+        
+        /* HEART OUTLINE - Using SVG mask approach */
+        .hidden-message::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            z-index: 5;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,95 C25,75 5,60 5,45 C5,30 15,20 25,20 C35,20 45,30 50,40 C55,30 65,20 75,20 C85,20 95,30 95,45 C95,60 75,75 50,95 Z" fill="none" stroke="%23ff1aff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: drop-shadow(0 0 25px rgba(255, 26, 255, 0.9)) drop-shadow(0 0 50px rgba(255, 26, 255, 0.6));
+        }
+        
+        .hidden-message.revealed {
+            animation: heartPulse 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        .hidden-message.revealed::before {
+            animation: heartShapeGlow 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        @keyframes heartPulse {
+            0% { 
+                opacity: 0;
+                transform: scale(0) rotate(-20deg);
+            }
+            20% { 
+                opacity: 1;
+                transform: scale(1.4) rotate(5deg);
+            }
+            40% {
+                transform: scale(1.1) rotate(-5deg);
+            }
+            60% {
+                transform: scale(1.3) rotate(3deg);
+            }
+            80% {
+                transform: scale(0.95) rotate(-2deg);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+        
+        @keyframes heartShapeGlow {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+                filter: drop-shadow(0 0 10px rgba(255, 26, 255, 0.4));
+            }
+            20% {
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(1.3);
+                filter: drop-shadow(0 0 30px rgba(255, 26, 255, 1)) drop-shadow(0 0 50px rgba(255, 26, 255, 0.7));
+            }
+            40% {
+                transform: translate(-50%, -50%) scale(0.95);
+                filter: drop-shadow(0 0 20px rgba(255, 26, 255, 0.8));
+            }
+            60% {
+                transform: translate(-50%, -50%) scale(1.2);
+                filter: drop-shadow(0 0 30px rgba(255, 26, 255, 1)) drop-shadow(0 0 50px rgba(255, 26, 255, 0.7));
+            }
+            100% {
+                opacity: 0.95;
+                transform: translate(-50%, -50%) scale(1);
+                filter: drop-shadow(0 0 25px rgba(255, 26, 255, 0.9)) drop-shadow(0 0 40px rgba(255, 26, 255, 0.6));
+            }
+        }
+        
+        /* Message Card Screen */
+        .birthday-card {
+            width: 100%;
+            max-width: 420px;
+            height: 550px;
+            background: linear-gradient(135deg, #ff1aff 0%, #ff0080 100%);
+            border-radius: 25px;
+            padding: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+        }
+        
+        .birthday-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f8f8 0%, #e8e8f8 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-front {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .card-front h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .card-front h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .card-front h3 {
+            font-family: 'Pacifico', cursive;
+            font-size: 26px;
+            color: #7f8c8d;
+        }
+        
+        .tap-to-open {
+            background: linear-gradient(135deg, #ff1aff 0%, #ff0080 100%);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 30px;
+            box-shadow: 0 6px 20px rgba(255, 26, 255, 0.4);
+            animation: pulse-btn 2s infinite;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @keyframes pulse-btn {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .card-message {
+            display: none;
+            text-align: center;
+            width: 100%;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        .card-message.active {
+            display: block;
+        }
+        
+        .card-message p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        /* Gift Screen */
+        .gift-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            color: #ff1aff;
+            text-align: center;
+            margin-bottom: 80px;
+            text-shadow: 0 0 20px rgba(255, 26, 255, 0.5);
+        }
+        
+        .gift-box-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-bottom: 60px;
+        }
+        
+        .gift-box-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .gift-box {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            animation: giftFloat 3s ease-in-out infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes giftFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        
+        .gift-lid {
+            position: absolute;
+            top: -25px;
+            left: -8px;
+            width: 196px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff1aff 0%, #ff0080 100%);
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gift-ribbon-v {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 100%;
+            background: linear-gradient(to right, #ff1aff, #ff0080);
+        }
+        
+        .gift-ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 25px;
+            background: linear-gradient(to bottom, #ff1aff, #ff0080);
+        }
+        
+        .gift-bow {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 45px;
+        }
+        
+        .bow-loop {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #ff0080, #cc0066);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+        }
+        
+        .bow-loop-left { left: 0; }
+        .bow-loop-right { right: 0; }
+        
+        .bow-center {
+            width: 15px;
+            height: 15px;
+            background: #ff0080;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .tap-gift-text {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .gift-message {
+            display: none;
+            text-align: center;
+            max-width: 650px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .gift-message.active {
+            display: block;
+        }
+        
+        .gift-message h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 40px;
+            color: #ff1aff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 26, 255, 0.5);
+        }
+        
+        .gift-message p {
+            font-size: 22px;
+            line-height: 1.8;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .promise-section p:first-of-type {
+            margin-top: 20px;
+        }
+        
+        .final-promise {
+            font-weight: 700;
+            font-size: 26px;
+            color: #ff1aff;
+            margin-top: 25px;
+            text-shadow: 0 0 15px rgba(255, 26, 255, 0.5);
+        }
+        
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s linear forwards;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Bunting */
+        .bunting {
+            width: 100%;
+            max-width: 800px;
+            height: 70px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .bunting-flag {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 40px solid;
+            position: absolute;
+            animation: swing 3s ease-in-out infinite;
+        }
+        
+        @keyframes swing {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(8deg); }
+            75% { transform: rotate(-8deg); }
+        }
+        
+        /* Memories Carousel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            perspective: 1000px;
+            margin-bottom: 60px;
+        }
+        
+        .card-stack {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            margin: 0 auto;
+        }
+        
+        .memory-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff1aff 0%, #00d4ff 100%);
+            border-radius: 25px;
+            padding: 8px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            cursor: grab;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            user-select: none;
+            top: 0;
+            left: 0;
+        }
+        
+        .memory-card:active {
+            cursor: grabbing;
+        }
+        
+        .card-content {
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 100px;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .swipe-indicator {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .arrow {
+            font-size: 20px;
+            animation: slideRight 2s infinite;
+        }
+        
+        @keyframes slideRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-text h1 { font-size: 28px; }
+            .intro-text h2 { font-size: 24px; }
+            .message-title { font-size: 36px; }
+            .message-subtitle { font-size: 32px; }
+            .gift-title { font-size: 36px; }
+            .balloon-game-area { height: 450px; }
+            
+            /* Mobile candle visibility */
+            .candle {
+                top: 18px;
+                width: 12px;
+                height: 55px;
+            }
+            
+            .flame {
+                top: -16px;
+                width: 20px;
+                height: 32px;
+                box-shadow: 0 0 15px #ffaa00;
+            }
+            
+            .cake {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .cake-layer {
+                height: 60px;
+            }
+            
+            .cake-layer-2 { bottom: 55px; }
+            .cake-layer-3 { bottom: 110px; }
+            
+            .cake-container {
+                margin-bottom: 40px;
+            }
+            
+            .button-group {
+                margin-top: 30px;
+            }
+            
+            .action-btn, .start-btn, .next-btn {
+                padding: 14px 35px;
+                font-size: 16px;
+            }
+            
+            .balloon-item {
+                width: 70px;
+                height: 95px;
+            }
+            
+            .balloon-body {
+                width: 70px;
+                height: 95px;
+            }
+            
+            .balloon-string {
+                height: 50px;
+            }
+            
+            .hidden-message {
+                font-size: 24px;
+                padding: 20px;
+                margin: 15px;
+            }
+            
+            .memory-card {
+                height: 380px;
+            }
+            
+            .card-stack {
+                height: 380px;
+            }
+            
+            /* Birthday Card Mobile Optimization */
+            .birthday-card {
+                max-width: 100%;
+                width: 95%;
+                height: auto;
+                min-height: 500px;
+                padding: 15px;
+                margin: 20px auto;
+            }
+            
+            .card-inner {
+                padding: 35px 25px;
+                min-height: 450px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+            
+            .card-front {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .card-front h1 {
+                font-size: 42px;
+                margin-bottom: 15px;
+                font-weight: 800;
+            }
+            
+            .card-front h2 {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+            
+            .card-front h3 {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            
+            .tap-to-open {
+                padding: 14px 40px;
+                font-size: 16px;
+                margin-top: 25px;
+                width: fit-content;
+                align-self: center;
+            }
+            
+            .card-message {
+                padding: 0;
+                max-height: 400px;
+                overflow-y: auto;
+            }
+            
+            .card-message p {
+                font-size: 17px;
+                line-height: 1.7;
+                margin-bottom: 15px;
+            }
+            
+            .card-message p:first-of-type {
+                font-size: 21px;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+            
+            .gift-box {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .gift-message {
+                max-width: 90%;
+                padding: 20px;
+            }
+            
+            .gift-message h2 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            .gift-message p {
+                font-size: 18px;
+                line-height: 1.6;
+            }
+            
+            .promise-section p {
+                margin-bottom: 12px;
+            }
+            
+            .final-promise {
+                font-size: 22px;
+                margin-top: 20px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+                min-height: auto;
+            }
+            
+            .message-title {
+                margin-bottom: 15px;
+                font-size: 32px;
+            }
+            
+            .screen {
+                min-height: auto;
+                padding: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <!-- Intro Screen -->
+    <div class="intro-screen" id="introScreen">
+        <div class="cute-character">👭</div>
+        <div class="intro-text">
+            <h1>19 years ago...</h1>
+            <h2>Meghu was born! 🌟</h2>
+            <p style="margin-top: 20px;">And I got luckier to call you my bestie! 💖</p>
+            <p>Ready for your surprise?</p>
+        </div>
+        <button class="start-btn" id="startBtn">
+            <span>🎁</span> Start the Surprise
+        </button>
+    </div>
+    
+    <!-- Countdown Screen -->
+    <div class="countdown-screen" id="countdownScreen">
+        <div class="countdown-number" id="countdownNumber">3</div>
+        <div class="countdown-text">✨ Crafting your moment... ✨</div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <!-- Cake Screen -->
+        <div class="screen cake-screen" id="cakeScreen">
+            <div class="cake-container">
+                <div class="cake" id="cake">
+                    <div class="candle" id="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="cake-layer cake-layer-3">
+                        <div class="frosting"></div>
+                    </div>
+                    <div class="cake-layer cake-layer-2">
+                        <div class="frosting"></div>
+                    </div>
+                    <div class="cake-layer cake-layer-1">
+                        <div class="frosting"></div>
+                    </div>
+                    <div class="plate"></div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="action-btn" id="decorateBtn">
+                    <span>🎨</span> Decorate
+                </button>
+                <button class="action-btn" id="lightBtn" style="display: none;">
+                    <span>🔥</span> Light Candle
+                </button>
+            </div>
+        </div>
+        
+        <!-- Birthday Message Screen -->
+        <div class="screen" id="birthdayMessageScreen">
+            <h1 class="message-title">Happy Birthday,</h1>
+            <h2 class="message-subtitle">Meghu! 🎂✨</h2>
+            <button class="next-btn" id="birthdayNextBtn">
+                Next <span>→</span>
+            </button>
+        </div>
+        
+        <!-- Balloon Screen -->
+        <div class="screen" id="balloonScreen">
+            <h2 class="balloon-title">🎈 Pop all 4 balloons!</h2>
+            <div class="balloon-game-area" id="balloonGame">
+                <div class="balloon-item" data-balloon="1">
+                    <div class="balloon-body" style="background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="balloon-item" data-balloon="2">
+                    <div class="balloon-body" style="background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="balloon-item" data-balloon="3">
+                    <div class="balloon-body" style="background: linear-gradient(135deg, #90ee90 0%, #32cd32 100%);"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                <div class="balloon-item" data-balloon="4">
+                    <div class="balloon-body" style="background: linear-gradient(135deg, #87ceeb 0%, #4169e1 100%);"></div>
+                    <div class="balloon-string"></div>
+                </div>
+                
+                <div class="hidden-message" id="hiddenMessage1" style="top: 15%; left: 10%;">Meghu,</div>
+                <div class="hidden-message" id="hiddenMessage2" style="top: 15%; right: 10%;">you're</div>
+                <div class="hidden-message" id="hiddenMessage3" style="bottom: 15%; left: 10%;">one in</div>
+                <div class="hidden-message" id="hiddenMessage4" style="bottom: 15%; right: 10%;">a million!</div>
+            </div>
+            <button class="next-btn" id="balloonNextBtn" style="margin-top: 50px;">
+                Next <span>→</span>
+            </button>
+        </div>
+        
+        <!-- Memories Screen -->
+        <div class="screen" id="memoriesScreen">
+            <h1 class="message-title">✨ Some Sweet Moments ✨</h1>
+            <p style="font-size: 18px; color: #bbb; text-align: center; margin-bottom: 50px;">(Swipe the cards →)</p>
+            
+            <div class="carousel-container">
+                <div class="card-stack" id="cardStack"></div>
+                <div class="swipe-indicator">
+                    <span>Swipe</span>
+                    <span class="arrow">→</span>
+                </div>
+            </div>
+            
+            <button class="next-btn" id="memoriesNextBtn" style="margin-top: 50px;">
+                Next <span>→</span>
+            </button>
+        </div>
+        
+        <!-- Message Card Screen -->
+        <div class="screen" id="messageScreen">
+            <h1 class="message-title">💌 A Special Message</h1>
+            <div class="birthday-card" id="birthdayCard">
+                <div class="card-inner">
+                    <div class="card-front" id="cardFront">
+                        <h2>Happy</h2>
+                        <h1>BIRTHDAY</h1>
+                        <h3>to you</h3>
+                        <button class="tap-to-open">Tap to Open 💝</button>
+                    </div>
+                    <div class="card-message" id="cardMessage">
+                        <p style="font-size: 24px; font-weight: 600; color: #ff1aff; margin-bottom: 20px;">🌸 పుట్టినరోజు శుభాకాంక్షలు! 🌸</p>
+                        <p style="font-size: 20px; font-weight: 500; color: #ff1aff;">ప్రియమైన Meghu,</p>
+                        <p>నీ చిరునవ్వు రోజుని వెలిగిస్తుంది,<br>నీ స్నేహం జీవితం అందంగా చేస్తుంది 💖</p>
+                        <p>ఈ రోజు మాత్రమే కాదు… ప్రతి రోజూ<br>నువ్వు ఇలానే స్పెషల్‌గా ఉండాలి ✨</p>
+                        <p style="font-size: 22px; font-weight: 600; margin-top: 20px;">🎂 హ్యాపీ బర్త్‌డే! 🎉</p>
+                        <p>ఎప్పుడూ సంతోషంగా నవ్వుతూ ఉండలి 😊</p>
+                        <p style="font-style: italic; margin-top: 20px; font-size: 16px;">Forever your friend,<br>Always here for you! 💕</p>
+                    </div>
+                </div>
+            </div>
+            <button class="next-btn" id="messageNextBtn" style="margin-top: 40px;">
+                Continue <span>→</span>
+            </button>
+        </div>
+        
+        <!-- Gift Screen -->
+        <div class="screen" id="giftScreen">
+            <h1 class="gift-title">One Last Thing... 🎁</h1>
+            <div class="gift-box-container" id="giftContainer">
+                <div class="gift-box">
+                    <div class="gift-lid"></div>
+                    <div class="gift-ribbon-v"></div>
+                    <div class="gift-ribbon-h"></div>
+                    <div class="gift-bow">
+                        <div class="bow-loop bow-loop-left"></div>
+                        <div class="bow-loop bow-loop-right"></div>
+                        <div class="bow-center"></div>
+                    </div>
+                </div>
+                <p class="tap-gift-text">Tap to open 💝</p>
+            </div>
+            <div class="gift-message" id="giftMessage">
+                <h2>🎁 For Meghu - Your Special Gift 🎁</h2>
+                <p style="font-size: 24px; margin-bottom: 25px; font-weight: 600;">A Promise From Your Bestie:</p>
+                <div class="promise-section">
+                    <p>✨ I promise to always have your back, no matter what</p>
+                    <p>🌟 I promise to celebrate your wins like they're my own</p>
+                    <p>💪 I promise to lift you up when life gets tough</p>
+                    <p>😂 I promise to keep making you laugh until we're old and grey</p>
+                </div>
+                <p class="final-promise">You + Me = Unbreakable! 👯‍♀️💖</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Confetti function
+        function createConfetti() {
+            const colors = ['#ff1aff', '#00d4ff', '#ffff00', '#00ff00', '#ff6600', '#ff0080'];
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+        
+        // Start button
+        document.getElementById('startBtn').addEventListener('click', () => {
+            document.getElementById('introScreen').style.opacity = '0';
+            document.getElementById('introScreen').style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.getElementById('introScreen').style.display = 'none';
+                document.getElementById('countdownScreen').style.display = 'flex';
+                startCountdown();
+            }, 500);
+        });
+        
+        // Countdown
+        function startCountdown() {
+            let count = 3;
+            const countdownNumber = document.getElementById('countdownNumber');
+            
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownNumber.textContent = count;
+                    countdownNumber.style.animation = 'none';
+                    setTimeout(() => {
+                        countdownNumber.style.animation = 'pulse 1s ease-in-out';
+                    }, 10);
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('countdownScreen').style.opacity = '0';
+                        document.getElementById('countdownScreen').style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            document.getElementById('countdownScreen').style.display = 'none';
+                            document.getElementById('mainContainer').classList.add('active');
+                            document.getElementById('cakeScreen').classList.add('active');
+                        }, 500);
+                    }, 1000);
+                }
+            }, 1000);
+        }
+        
+        // Cake decoration
+        document.getElementById('decorateBtn').addEventListener('click', () => {
+            createConfetti();
+            const colors = ['#ff1aff', '#00d4ff', '#ffff00', '#00ff00', '#ff6600', '#ff0080'];
+            const layers = document.querySelectorAll('.cake-layer');
+            
+            for (let i = 0; i < 25; i++) {
+                layers.forEach(layer => {
+                    const sprinkle = document.createElement('div');
+                    sprinkle.className = 'sprinkle';
+                    sprinkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    sprinkle.style.left = (Math.random() * 80 + 10) + '%';
+                    sprinkle.style.top = (Math.random() * 60 + 10) + '%';
+                    sprinkle.style.animationDelay = (Math.random() * 0.2) + 's';
+                    layer.appendChild(sprinkle);
+                    setTimeout(() => sprinkle.classList.add('active'), 10);
+                });
+            }
+            
+            document.getElementById('decorateBtn').style.display = 'none';
+            document.getElementById('lightBtn').style.display = 'flex';
+        });
+        
+        // Light candle
+        document.getElementById('lightBtn').addEventListener('click', () => {
+            createConfetti();
+            createConfetti();
+            document.getElementById('candle').classList.add('visible');
+            
+            setTimeout(() => {
+                document.getElementById('cakeScreen').classList.remove('active');
+                document.getElementById('birthdayMessageScreen').classList.add('active');
+            }, 1500);
+        });
+        
+        // Birthday message next
+        document.getElementById('birthdayNextBtn').addEventListener('click', () => {
+            document.getElementById('birthdayMessageScreen').classList.remove('active');
+            document.getElementById('balloonScreen').classList.add('active');
+        });
+        
+        // Balloon game
+        let balloonsPopped = 0;
+        const balloonItems = document.querySelectorAll('.balloon-item');
+        const hiddenMessages = [
+            document.getElementById('hiddenMessage1'),
+            document.getElementById('hiddenMessage2'),
+            document.getElementById('hiddenMessage3'),
+            document.getElementById('hiddenMessage4')
+        ];
+        
+        balloonItems.forEach((balloon, index) => {
+            balloon.addEventListener('click', () => {
+                if (!balloon.classList.contains('popped')) {
+                    balloon.classList.add('popped');
+                    balloonsPopped++;
+                    
+                    setTimeout(() => {
+                        hiddenMessages[index].classList.add('revealed');
+                    }, 200);
+                    
+                    if (balloonsPopped === 4) {
+                        setTimeout(() => {
+                            document.getElementById('balloonNextBtn').style.opacity = '1';
+                            document.getElementById('balloonNextBtn').style.pointerEvents = 'auto';
+                        }, 1000);
+                    }
+                }
+            });
+        });
+        
+        // Balloon next
+        document.getElementById('balloonNextBtn').addEventListener('click', () => {
+            document.getElementById('balloonScreen').classList.remove('active');
+            document.getElementById('memoriesScreen').classList.add('active');
+            initializeMemoryCards();
+        });
+        
+        // 📸 YOUR LOCAL PHOTOS - UPDATE THE FILENAMES BELOW
+        // Make sure the HTML file is in the SAME folder as your photos (C:\project\BPRO)
+        const PHOTO_PATHS = [
+            'photo 6.jpeg',
+            'photo 4.jpeg',  // Your photo 1
+            'photo 3.jpeg',  // Your photo 2 - Change to different filename if you have multiple
+            'photo 2.jpeg',
+            'photo 1.jpeg',
+            
+           
+        ];
+        
+        // 🎯 HOW TO CUSTOMIZE:
+        // 1. Copy this HTML file to C:\project\BPRO folder
+        // 2. Replace 'photo 2.jpg' with your actual filenames
+        // 3. Example: 'photo1.jpg', 'bestie.png', 'memory.jpg', etc.
+        // 4. Supported formats: .jpg, .jpeg, .png, .gif, .webp
+        
+        // Swipe tracking variables
+        let activeCard = null;
+        let startX = 0;
+        let currentX = 0;
+        let isProcessing = false;
+        
+        function initializeMemoryCards() {
+            const cardStack = document.getElementById('cardStack');
+            
+            // Create all cards with photos in order
+            PHOTO_PATHS.forEach((photoPath, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.style.position = 'absolute';
+                card.style.width = '100%';
+                card.style.height = '100%';
+                card.style.top = '0';
+                card.style.left = '0';
+                // Higher index = higher z-index (on top)
+                card.style.transform = `translateY(${index * 3}px) translateX(${index * 3}px) rotate(${index * 2}deg)`;
+                card.style.zIndex = index + 1;
+                card.style.cursor = 'grab';
+                
+                const cardContent = document.createElement('div');
+                cardContent.className = 'card-content';
+                cardContent.style.backgroundImage = `url('${photoPath}')`;
+                cardContent.style.backgroundSize = 'cover';
+                cardContent.style.backgroundPosition = 'center';
+                cardContent.style.backgroundRepeat = 'no-repeat';
+                
+                card.appendChild(cardContent);
+                cardStack.appendChild(card);
+                
+                // Make each card swipeable
+                card.addEventListener('mousedown', (e) => handleSwipeStart(e, card), false);
+                card.addEventListener('touchstart', (e) => handleSwipeStart(e, card), false);
+            });
+            
+            // Setup swipe listeners
+            setupSwipeListeners();
+        }
+        
+        function setupSwipeListeners() {
+            const cardStack = document.getElementById('cardStack');
+            
+            // Mouse events on document
+            document.addEventListener('mousemove', handleSwipeMove, false);
+            document.addEventListener('mouseup', handleSwipeEnd, false);
+            
+            // Touch events on document
+            document.addEventListener('touchmove', handleSwipeMove, {passive: false});
+            document.addEventListener('touchend', handleSwipeEnd, false);
+        }
+        
+        function handleSwipeStart(e, card) {
+            if (isProcessing) return;
+            
+            activeCard = card;
+            startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            currentX = 0;
+            
+            if (activeCard) {
+                activeCard.style.transition = 'none';
+                activeCard.style.cursor = 'grabbing';
+            }
+        }
+        
+        function handleSwipeMove(e) {
+            if (!activeCard || isProcessing) return;
+            
+            const moveX = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - startX;
+            currentX = moveX;
+            
+            const scale = Math.max(0.8, 1 - Math.abs(moveX) / 1000);
+            activeCard.style.transform = `translateX(${moveX}px) rotate(${moveX * 0.15}deg) scale(${scale})`;
+            activeCard.style.opacity = Math.max(0.3, 1 - Math.abs(moveX) / 500);
+        }
+        
+        function handleSwipeEnd(e) {
+            if (!activeCard || isProcessing) return;
+            
+            isProcessing = true;
+            const cardStack = document.getElementById('cardStack');
+            const swipeThreshold = 50;
+            
+            activeCard.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+            activeCard.style.cursor = 'grab';
+            
+            if (Math.abs(currentX) > swipeThreshold) {
+                // Swipe successful - card leaves in swiped direction
+                const direction = currentX > 0 ? 1 : -1;
+                activeCard.style.transform = `translateX(${direction * 800}px) rotate(${direction * 30}deg) scale(0.9)`;
+                activeCard.style.opacity = '0';
+                
+                // Remove card after animation
+                setTimeout(() => {
+                    activeCard.remove();
+                    activeCard = null;
+                    isProcessing = false;
+                    
+                    // Check if all cards are swiped
+                    const remainingCards = cardStack.querySelectorAll('.memory-card');
+                    if (remainingCards.length === 0) {
+                        const nextBtn = document.getElementById('memoriesNextBtn');
+                        if (nextBtn) {
+                            nextBtn.style.opacity = '1';
+                            nextBtn.style.pointerEvents = 'auto';
+                        }
+                    }
+                }, 800);
+            } else {
+                // Swipe cancelled - card snaps back
+                activeCard.style.transform = `translateX(0) rotate(0deg) scale(1)`;
+                activeCard.style.opacity = '1';
+                
+                setTimeout(() => {
+                    isProcessing = false;
+                    activeCard = null;
+                }, 800);
+            }
+        }
+        
+        // Memories to message
+        document.getElementById('memoriesNextBtn').addEventListener('click', () => {
+            document.getElementById('memoriesScreen').classList.remove('active');
+            document.getElementById('messageScreen').classList.add('active');
+        });
+        
+        // Birthday card
+        document.getElementById('birthdayCard').addEventListener('click', () => {
+            const cardFront = document.getElementById('cardFront');
+            const cardMessage = document.getElementById('cardMessage');
+            
+            if (cardFront.style.display !== 'none') {
+                createConfetti();
+                cardFront.style.opacity = '0';
+                cardFront.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    cardFront.style.display = 'none';
+                    cardMessage.classList.add('active');
+                }, 500);
+            }
+        });
+        
+        // Message next
+        document.getElementById('messageNextBtn').addEventListener('click', () => {
+            document.getElementById('messageScreen').classList.remove('active');
+            document.getElementById('giftScreen').classList.add('active');
+        });
+        
+        // Gift box
+        document.getElementById('giftContainer').addEventListener('click', () => {
+            createConfetti();
+            createConfetti();
+            
+            document.getElementById('giftContainer').style.transform = 'scale(0)';
+            document.getElementById('giftContainer').style.opacity = '0';
+            document.getElementById('giftContainer').style.transition = 'all 0.8s ease';
+            
+            setTimeout(() => {
+                document.getElementById('giftContainer').style.display = 'none';
+                document.getElementById('giftMessage').classList.add('active');
+            }, 800);
+        });
+    </script>
+</body>
+</html>
